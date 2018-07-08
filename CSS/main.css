@@ -1,0 +1,12 @@
+.whitespace  {
+  color: white;
+
+  overflow: hidden;
+  padding: 35px 0 40px 45px;
+  background-color: grey;
+  border-radius: 10px 10px 0 0;
+  border-color: black;
+  user-select: none;
+  font-size: 28px;
+
+}
