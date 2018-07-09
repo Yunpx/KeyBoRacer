@@ -5,6 +5,7 @@ var request = new XMLHttpRequest();
 var wordsArray =[];
 var space=false;
 var currentId=0;
+var currentValue="";
 
 request.open('GET', requestURL);
 request.responseType = 'json';
@@ -60,10 +61,13 @@ function removePrevious(id) {
 
 function uniCharCode(event) {
     var char = event.which || event.keyCode;
-    if(char == 32){
+    if(char == 32|| char == 13){
       currentId+=1;
       addCurrent(currentId);
       removePrevious(currentId-1);
+      currentValue= document.getElementById('typing').value.replace(/ /g,'');
+      document.getElementById('typing').value = '';
+      console.log(currentValue);
     }
-console.log(char);
+    console.log(char);
 }
