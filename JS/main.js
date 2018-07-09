@@ -9,10 +9,13 @@ var currentValue="";
 var correctCount=0;
 var wrongCount=0;
 var accuracy=0+"%";
+var timerToggle =  false;
 
 var totalChar=0;
 
 var wpm=0;
+
+//------------------< getting JSON file >------------------------
 
 request.open('GET', requestURL);
 request.responseType = 'json';
@@ -47,6 +50,8 @@ function createE(paragraph) {
   }
 }
 
+//------------------< adding classes >------------------------
+
 function addCurrent(id){
   var element =document.getElementById(id);
   element.classList.add("current");
@@ -63,6 +68,9 @@ function removePrevious(id) {
 //
 // document.onkeyup = getKey;
 //32
+
+//------------------< checking typo >------------------------
+
 function checker() {
   currentValue= document.getElementById('typing').value.replace(/ /g,'');
   //get current id
@@ -84,6 +92,8 @@ function clearInputField() {
   document.getElementById('typing').value = '';
 }
 
+//------------------< input field >------------------------
+
 function uniCharCode(event) {
     var char = event.which || event.keyCode;
     if(char == 32|| char == 13){
@@ -97,8 +107,8 @@ function uniCharCode(event) {
       if(currentId ==wordsArray.length-2){
         clearInputField();
         alert("Race completed!");
-        clearInterval(myVar);
-        clearInterval(myVar2);
+         clearInterval(myVar);
+         clearInterval(myVar2);
 
 
       }else {
@@ -107,17 +117,17 @@ function uniCharCode(event) {
         removePrevious(currentId-1);
       }
       accuracy = Math.round(correctCount/totalChar *100) +"%";
-      wpm = Math.round((keysPressed/5)/seconds *60);
       clearInputField();
     }
+    wpm = Math.round((keysPressed/5)/seconds *60);
+
     document.getElementById("accuracy").innerHTML = accuracy;
-    document.getElementById("wpm").innerHTML = wpm;
     console.log("Time passed "+ seconds + " keysPressed "+ keysPressed+ " wpm "+wpm);
 
     // console.log(char);
 }
 
-//------------------------------------------
+//-----------------< keysPressed >-------------------------
 var keysPressed = 0;
 document.addEventListener('keypress', (event) => {
   var char = event.which || event.keyCode;
@@ -127,19 +137,23 @@ document.addEventListener('keypress', (event) => {
   }
 });
 
-//------------------------------------------
+//------------------< Timer >------------------------
+// timerToggle = true;
+var myVar;
+var myVar2;
 
-var myVar = setInterval(myTimer, 1000);
+
+function setTimer() {
+  myVar = setInterval(myTimer, 1000);
+  myVar2 = setInterval(myTimer2, 0.0001);
+  console.log("yo");
+}
+
 var seconds = 0;
 var minutes = 0;
 var miliseconds=0;
-var myVar2 = setInterval(myTimer2, 0.0001);
 
-// startTimer(){
-//   var myVar = setInterval(myTimer, 1000);
-//   var myVar2 = setInterval(myTimer2, 0.0001);
-//
-// }
+
 
 function myTimer2() {
     var d = new Date();
@@ -168,4 +182,8 @@ function myTimer() {
       document.getElementById("minutes").innerHTML = m;
 
     }
+    wpm = Math.round((keysPressed/5)/seconds *60);
+
+    document.getElementById("wpm").innerHTML = wpm;
+
   }
