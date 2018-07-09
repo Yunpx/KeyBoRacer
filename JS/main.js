@@ -8,7 +8,9 @@ var currentId=0;
 var currentValue="";
 var correctCount=0;
 var wrongCount=0;
-var accuracy=0;
+var accuracy=0+"%";
+
+var totalChar=0;
 
 request.open('GET', requestURL);
 request.responseType = 'json';
@@ -87,6 +89,9 @@ function uniCharCode(event) {
       checker();
       console.log("current " + currentId + " Array "+ wordsArray.length);
 
+      totalChar+=1;
+
+      console.log(totalChar);
       if(currentId ==wordsArray.length-1){
         clearInputField();
         alert("Race completed!");
@@ -96,10 +101,10 @@ function uniCharCode(event) {
         addCurrent(currentId);
         removePrevious(currentId-1);
       }
-
+      accuracy = correctCount/totalChar *100 +"%";
       clearInputField();
     }
-    console.log(correctCount/wordsArray.length *100 +"%");
+    document.getElementById("accuracy").innerHTML = accuracy;
 
     // console.log(char);
 }
