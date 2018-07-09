@@ -10,3 +10,18 @@
   font-size: 28px;
 
 }
+
+.current{
+  color: white;
+  background: green;
+}
+
+.wrong{
+  color:red;
+  background-color: grey;
+}
+
+.correct{
+  color: lightgreen;
+  background-color: grey;
+}
