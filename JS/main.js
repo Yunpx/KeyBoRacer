@@ -94,7 +94,7 @@ function uniCharCode(event) {
       totalChar+=1;
 
       // console.log(totalChar);
-      if(currentId ==wordsArray.length-1){
+      if(currentId ==wordsArray.length-2){
         clearInputField();
         alert("Race completed!");
         clearInterval(myVar);
@@ -121,18 +121,25 @@ function uniCharCode(event) {
 var keysPressed = 0;
 document.addEventListener('keypress', (event) => {
   var char = event.which || event.keyCode;
- if(char!=32 && char!=13 && char!=9){
+ if(char!=32 && char!=13 && char!=9 && char!=8){
    keysPressed++;
    console.log(keysPressed);
   }
 });
 
 //------------------------------------------
+
 var myVar = setInterval(myTimer, 1000);
 var seconds = 0;
 var minutes = 0;
 var miliseconds=0;
 var myVar2 = setInterval(myTimer2, 0.0001);
+
+// startTimer(){
+//   var myVar = setInterval(myTimer, 1000);
+//   var myVar2 = setInterval(myTimer2, 0.0001);
+//
+// }
 
 function myTimer2() {
     var d = new Date();
