@@ -2,7 +2,7 @@ var myVar = setInterval(myTimer, 1000);
 var seconds = 55;
 var minutes = 0;
 var miliseconds=0;
-var myVar = setInterval(myTimer2, 0.0000000001);
+var myVar = setInterval(myTimer2, 0.0001);
 
 function myTimer2() {
     var d = new Date();
@@ -16,13 +16,13 @@ function myTimer2() {
 function myTimer() {
     var d = new Date();
   	d.setHours(0,0,0,0);
-    var ms = d.set
 
     seconds+=1;
     var t = d.setSeconds(seconds);
     t=d.getSeconds()
     document.getElementById("second").innerHTML = t;
     console.log(t);
+    console.log(seconds);
 
     if(seconds%60==0){
       minutes+=1;
