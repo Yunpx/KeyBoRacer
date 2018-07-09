@@ -8,7 +8,7 @@ var currentId=0;
 var currentValue="";
 var correctCount=0;
 var wrongCount=0;
-
+var accuracy=0;
 
 request.open('GET', requestURL);
 request.responseType = 'json';
@@ -67,10 +67,12 @@ function checker() {
   if(currentValue == wordsArray[currentId]){
     console.log("yes");
     element.classList.add("correct");
+    correctCount +=1;
 
   }else {
     console.log("no");
     element.classList.add("wrong");
+    wrongCount +=1;
   }
 }
 
@@ -97,6 +99,7 @@ function uniCharCode(event) {
 
       clearInputField();
     }
+    console.log(correctCount/wordsArray.length *100 +"%");
 
     // console.log(char);
 }
