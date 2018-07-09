@@ -12,6 +12,8 @@ var accuracy=0+"%";
 
 var totalChar=0;
 
+var wpm=0;
+
 request.open('GET', requestURL);
 request.responseType = 'json';
 request.send();
@@ -87,24 +89,76 @@ function uniCharCode(event) {
     if(char == 32|| char == 13){
       //check right or wrong
       checker();
-      console.log("current " + currentId + " Array "+ wordsArray.length);
+      // console.log("current " + currentId + " Array "+ wordsArray.length);
 
       totalChar+=1;
 
-      console.log(totalChar);
+      // console.log(totalChar);
       if(currentId ==wordsArray.length-1){
         clearInputField();
         alert("Race completed!");
+        clearInterval(myVar);
+        clearInterval(myVar2);
+
 
       }else {
         currentId+=1;
         addCurrent(currentId);
         removePrevious(currentId-1);
       }
-      accuracy = correctCount/totalChar *100 +"%";
+      accuracy = Math.round(correctCount/totalChar *100) +"%";
+      wpm = Math.round((keysPressed/5)/seconds *60);
       clearInputField();
     }
     document.getElementById("accuracy").innerHTML = accuracy;
+    document.getElementById("wpm").innerHTML = wpm;
+    console.log("Time passed "+ seconds + " keysPressed "+ keysPressed+ " wpm "+wpm);
 
     // console.log(char);
 }
+
+//------------------------------------------
+var keysPressed = 0;
+document.addEventListener('keypress', (event) => {
+  var char = event.which || event.keyCode;
+ if(char!=32 && char!=13 && char!=9){
+   keysPressed++;
+   console.log(keysPressed);
+  }
+});
+
+//------------------------------------------
+var myVar = setInterval(myTimer, 1000);
+var seconds = 0;
+var minutes = 0;
+var miliseconds=0;
+var myVar2 = setInterval(myTimer2, 0.0001);
+
+function myTimer2() {
+    var d = new Date();
+  	d.setHours(0,0,0,0,0);
+    miliseconds+=1;
+    var t = d.setMilliseconds(miliseconds);
+    t=d.getMilliseconds();
+    document.getElementById("milisecond").innerHTML = t;
+    }
+
+function myTimer() {
+    var d = new Date();
+  	d.setHours(0,0,0,0);
+
+    seconds+=1;
+    var t = d.setSeconds(seconds);
+    t=d.getSeconds()
+    document.getElementById("second").innerHTML = t;
+    // console.log(t);
+    // console.log("Seconds passed "+ seconds);
+
+    if(seconds%60==0){
+      minutes+=1;
+      var m = d.setMinutes(minutes);
+      m= d.getMinutes();
+      document.getElementById("minutes").innerHTML = m;
+
+    }
+  }

@@ -2,7 +2,7 @@ var myVar = setInterval(myTimer, 1000);
 var seconds = 55;
 var minutes = 0;
 var miliseconds=0;
-var myVar = setInterval(myTimer2, 0.0001);
+var myVar2 = setInterval(myTimer2, 0.0001);
 
 function myTimer2() {
     var d = new Date();
