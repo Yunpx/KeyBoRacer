@@ -58,16 +58,27 @@ function removePrevious(id) {
 //32
 
 
-
 function uniCharCode(event) {
     var char = event.which || event.keyCode;
     if(char == 32|| char == 13){
+      //removes gaps in the input
+      currentValue= document.getElementById('typing').value.replace(/ /g,'');
+      //get current id
+      var element =document.getElementById(currentId);
+
+      if(currentValue == wordsArray[currentId]){
+        console.log("yes");
+        element.classList.add("correct");
+
+      }else {
+        console.log("no");
+        element.classList.add("wrong");
+      }
       currentId+=1;
       addCurrent(currentId);
       removePrevious(currentId-1);
-      currentValue= document.getElementById('typing').value.replace(/ /g,'');
       document.getElementById('typing').value = '';
-      console.log(currentValue);
+
     }
-    console.log(char);
+    // console.log(char);
 }
