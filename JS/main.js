@@ -6,6 +6,9 @@ var wordsArray =[];
 var space=false;
 var currentId=0;
 var currentValue="";
+var correctCount=0;
+var wrongCount=0;
+
 
 request.open('GET', requestURL);
 request.responseType = 'json';
@@ -80,10 +83,20 @@ function uniCharCode(event) {
     if(char == 32|| char == 13){
       //check right or wrong
       checker();
-      currentId+=1;
-      addCurrent(currentId);
-      removePrevious(currentId-1);
+      console.log("current " + currentId + " Array "+ wordsArray.length);
+
+      if(currentId ==wordsArray.length-1){
+        clearInputField();
+        alert("Race completed!");
+
+      }else {
+        currentId+=1;
+        addCurrent(currentId);
+        removePrevious(currentId-1);
+      }
+
       clearInputField();
     }
+
     // console.log(char);
 }
