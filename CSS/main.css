@@ -20,7 +20,10 @@
   background-color: orange;
   /* transform: rotate(270deg); */
 }
-
+#prepare{
+  font-size: 100px;
+  color: red;
+}
 
 img.car{
   height: 40px;

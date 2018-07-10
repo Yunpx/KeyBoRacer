@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
   //------------------< Health >------------------------
   function move2() {
-    wrongCount2 = wrongCount*5;
+    wrongCount2 = wrongCount*10;
     var elem = document.getElementById("myBar2");
     var width = 100;
     frame();
@@ -165,7 +165,11 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log("width2 is " + width);
 
           if(width < 0){
-            alert("game Over!")
+            alert("game Over!");
+            clearInterval(myVar);
+            clearInterval(myVar2);
+            stop();
+            document.getElementById("typing").blur();
           }
           elem.style.width = width + '%';
           moveRight(width);
