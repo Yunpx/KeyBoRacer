@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function(){
     populateHeader(text);
     addCurrent(0);
     totalWords = getTotalWords(wordsArray);
-    // console.log("total " + totalWords);
   }
 
   function populateHeader(jsonObj) {
@@ -37,9 +36,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     var str = myH1.textContent;
     wordsArray = str.split(" ");
-    // document.getElementById("p1").innerHTML = "Hello my old friend!";
     createE(wordsArray);
-    // console.log(wordsArray);
   }
 
   function getTotalWords(array) {
@@ -78,12 +75,10 @@ document.addEventListener("DOMContentLoaded", function(){
     var element =document.getElementById(currentId);
 
     if(currentValue == wordsArray[currentId]){
-      // console.log("yes");
       element.classList.add("correct");
       correctCount +=1;
 
     }else {
-      // console.log("no");
       element.classList.add("wrong");
       wrongCount +=1;
       move2();
@@ -106,11 +101,9 @@ document.addEventListener("DOMContentLoaded", function(){
       if(char == 32|| char == 13){
         //check right or wrong
         checker();
-        // console.log("current " + currentId + " Array "+ wordsArray.length);
 
         currentWordCount+=1;
 
-        // console.log(currentWordCount);
         if(currentId ==wordsArray.length-2){
           clearInputField();
           alert("Race completed!");
@@ -130,11 +123,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
       percent =Math.round((currentWordCount/totalWords)*100);
       move(percent);
-      // console.log(percent+"%");
-      // console.log("total "+currentWordCount);
+
       document.getElementById("accuracy").innerHTML = accuracy;
-      // console.log("Time passed "+ seconds + " keysPressed "+ keysPressed+ " wpm "+wpm);
-      // console.log(char);
+
   }
   //------------------< progress >------------------------
   function move(amount) {
@@ -143,7 +134,6 @@ document.addEventListener("DOMContentLoaded", function(){
     frame();
     function frame() {
         width=amount;
-        // console.log("width is " + width);
         if(width == 98){
           width= 100;
         }
@@ -184,14 +174,12 @@ document.addEventListener("DOMContentLoaded", function(){
     var char = event.which || event.keyCode;
    if(char!=32 && char!=13 && char!=9 && char!=8){
      keysPressed++;
-     // console.log(keysPressed);
     }
   });
 
 
 
   //------------------< Timer >------------------------
-  // timerToggle = true;
   var myVar;
   var myVar2;
   var ready= 3;
@@ -216,7 +204,6 @@ document.addEventListener("DOMContentLoaded", function(){
      }
       } , 1000)
     });
-  // document.getElementById("startButton").addEventListener("click", setTimeout(setTimer(), 3000));
 
 
   function setTimer() {
@@ -246,8 +233,7 @@ document.addEventListener("DOMContentLoaded", function(){
       var t = d.setSeconds(seconds);
       t=d.getSeconds()
       document.getElementById("second").innerHTML = t;
-      // console.log(t);
-      // console.log("Seconds passed "+ seconds);
+
 
       if(seconds%60==0){
         minutes+=1;
@@ -279,19 +265,16 @@ function init(){
 function moveRight(){
     var progressBar = document.getElementById("myBar");
     left = parseInt(imgObj.style.left, 10);
-    // console.log("left is "+left);
     if (left<=900) {//// TODO: get dynamic width
         imgObj.style.left = progressBar.clientWidth + 'px';
         imgObj.style.visibility='visible';
-        //stopanimate = setTimeout(moveRight,20);
     } else {
         stop();
     }
-    //f();
 }
 
 function stop(){
-   clearTimeout(animate);
+   clearTimeout();
 }
 
 window.onload = function() {init();};

@@ -25,6 +25,10 @@
   color: red;
 }
 
+.Instructions{
+  background-color: white;
+}
+
 img.car{
   height: 40px;
   width: auto;
