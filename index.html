@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="CSS/main.css">
     <script type="text/javascript" src="JS/main.js">
 
@@ -11,28 +12,44 @@
 
   </head>
   <body>
-<div class="container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <img class = "car" id ="myImage" src="IMAGES\car3.png" alt="car">
+          <img class = "road" src="IMAGES\road.jpg" alt="road">
+          <!-- <p>2132</p> -->
 
-  <div class="whitespace">
-    <p id = "p1"></p>
-  </div>
-  <div class="">
-    <input type="text" name="fname" id = "typing">
-    <button type="button" name="button" id="startButton" >Start</button><span id="prepare"></span>
-  </div>
+          <div id="myProgress">
+            <div id="myBar">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 stats">
+          <p><span>Accuracy: </span><span id ="accuracy"></span></p>
+          <p><span>WPM: </span><span id ="wpm"></span></p>
+          <section id="stopWatch">
+           <p id="timer"><span id ="minutes">0</span>min<span id="second">00</span>s<span id="milisecond">00</span><span>ms</span></p>
 
-<div class="stats">
-  <p><span>Accuracy: </span><span id ="accuracy"></span></p>
-  <p><span>WPM: </span><span id ="wpm"></span></p>
-</div>
+           <button type="button" name="button" id="startButton" >Start</button><span id="prepare"></span>
+           <div id="myProgress2"></div>
+           <div id="myBar2"></div>
 
-</div>
+          </section>
+        </div>
+        <div class="col-md-9 ">
+          <div class="whitespace">
+            <p id = "p1"></p>
+          </div>
+          <div class="typingArea">
+            <input type="text" name="fname" id = "typing">
+          </div>
+        </div>
 
-<section id="stopWatch">
- <p id="timer"><span id ="minutes">00</span>:<span id="second">00</span>:<span id="milisecond">00</span></p>
+      </div>
 
+    </div>
 
- <p id="fulltime"> </p>
-</section>
   </body>
 </html>

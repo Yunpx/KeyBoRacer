@@ -11,9 +11,11 @@ document.addEventListener("DOMContentLoaded", function(){
   var accuracy=0+"%";
   var timerToggle =  false;
 
-  var totalChar=0;
+  var currentWordCount=0;
 
+  var totalWords=0;
   var wpm=0;
+  var percent= 0;
 
   //------------------< getting JSON file >------------------------
 
@@ -25,6 +27,8 @@ document.addEventListener("DOMContentLoaded", function(){
     var text = request.response;
     populateHeader(text);
     addCurrent(0);
+    totalWords = getTotalWords(wordsArray);
+    // console.log("total " + totalWords);
   }
 
   function populateHeader(jsonObj) {
@@ -35,7 +39,11 @@ document.addEventListener("DOMContentLoaded", function(){
     wordsArray = str.split(" ");
     // document.getElementById("p1").innerHTML = "Hello my old friend!";
     createE(wordsArray);
-    console.log(wordsArray);
+    // console.log(wordsArray);
+  }
+
+  function getTotalWords(array) {
+    return array.length;
   }
 
   function createE(paragraph) {
@@ -61,13 +69,6 @@ document.addEventListener("DOMContentLoaded", function(){
     element.classList.remove("current");
   }
 
-  // function getKey(e)
-  // {
-  //     window.alert("The key code is: " + e.keyCode);
-  // }
-  //
-  // document.onkeyup = getKey;
-  //32
 
   //------------------< checking typo >------------------------
 
@@ -77,14 +78,16 @@ document.addEventListener("DOMContentLoaded", function(){
     var element =document.getElementById(currentId);
 
     if(currentValue == wordsArray[currentId]){
-      console.log("yes");
+      // console.log("yes");
       element.classList.add("correct");
       correctCount +=1;
 
     }else {
-      console.log("no");
+      // console.log("no");
       element.classList.add("wrong");
       wrongCount +=1;
+      move2();
+      console.log("wrong "+wrongCount);
     }
   }
 
@@ -105,9 +108,9 @@ document.addEventListener("DOMContentLoaded", function(){
         checker();
         // console.log("current " + currentId + " Array "+ wordsArray.length);
 
-        totalChar+=1;
+        currentWordCount+=1;
 
-        // console.log(totalChar);
+        // console.log(currentWordCount);
         if(currentId ==wordsArray.length-2){
           clearInputField();
           alert("Race completed!");
@@ -120,15 +123,56 @@ document.addEventListener("DOMContentLoaded", function(){
           addCurrent(currentId);
           removePrevious(currentId-1);
         }
-        accuracy = Math.round(correctCount/totalChar *100) +"%";
+        accuracy = Math.round(correctCount/currentWordCount *100) +"%";
         clearInputField();
       }
       wpm = Math.round((keysPressed/5)/seconds *60);
 
+      percent =Math.round((currentWordCount/totalWords)*100);
+      move(percent);
+      // console.log(percent+"%");
+      // console.log("total "+currentWordCount);
       document.getElementById("accuracy").innerHTML = accuracy;
-      console.log("Time passed "+ seconds + " keysPressed "+ keysPressed+ " wpm "+wpm);
+      // console.log("Time passed "+ seconds + " keysPressed "+ keysPressed+ " wpm "+wpm);
       // console.log(char);
   }
+  //------------------< progress >------------------------
+  function move(amount) {
+    var elem = document.getElementById("myBar");
+    var width = 0;
+    frame();
+    function frame() {
+        width=amount;
+        // console.log("width is " + width);
+        if(width == 98){
+          width= 100;
+        }
+        elem.style.width = width + '%';
+        moveRight(width);
+
+    }
+  }
+  var wrongCount2=0;
+
+  //------------------< Health >------------------------
+  function move2() {
+    wrongCount2 = wrongCount*5;
+    var elem = document.getElementById("myBar2");
+    var width = 100;
+    frame();
+    function frame() {
+        width=width-wrongCount2;
+        console.log("width2 is " + width);
+
+          if(width < 0){
+            alert("game Over!")
+          }
+          elem.style.width = width + '%';
+          moveRight(width);
+
+    }
+  }
+
 
   //-----------------< keysPressed >-------------------------
   var keysPressed = 0;
@@ -136,9 +180,11 @@ document.addEventListener("DOMContentLoaded", function(){
     var char = event.which || event.keyCode;
    if(char!=32 && char!=13 && char!=9 && char!=8){
      keysPressed++;
-     console.log(keysPressed);
+     // console.log(keysPressed);
     }
   });
+
+
 
   //------------------< Timer >------------------------
   // timerToggle = true;
@@ -146,8 +192,13 @@ document.addEventListener("DOMContentLoaded", function(){
   var myVar2;
   var ready= 3;
 
+  function setFocusToTextBox(){
+      document.getElementById("typing").focus();
+    }
+
     document.getElementById("startButton").addEventListener("click", function(){
       setTimeout(setTimer, 4000);
+      setFocusToTextBox();
     });
     //// TODO: no 3-2-1 counter not working
     document.getElementById("startButton").addEventListener("click",function() {
@@ -159,7 +210,6 @@ document.addEventListener("DOMContentLoaded", function(){
        clearInterval(ready);
        document.getElementById("prepare").innerHTML = "";
      }
-
       } , 1000)
     });
   // document.getElementById("startButton").addEventListener("click", setTimeout(setTimer(), 3000));
@@ -206,4 +256,40 @@ document.addEventListener("DOMContentLoaded", function(){
       document.getElementById("wpm").innerHTML = wpm;
 
     }
+
+    //------------------< moving Car >------------------------
+
+var animate, left=0, imgObj=null;
+
+function init(){
+
+   imgObj = document.getElementById('myImage');
+   imgObj.style.position= 'absolute';
+   imgObj.style.top = '10px';
+   imgObj.style.left = '0px';
+   imgObj.style.visibility='hidden';
+
+   moveRight();
+}
+
+function moveRight(){
+    var progressBar = document.getElementById("myBar");
+    left = parseInt(imgObj.style.left, 10);
+    // console.log("left is "+left);
+    if (left<=900) {//// TODO: get dynamic width
+        imgObj.style.left = progressBar.clientWidth + 'px';
+        imgObj.style.visibility='visible';
+        //stopanimate = setTimeout(moveRight,20);
+    } else {
+        stop();
+    }
+    //f();
+}
+
+function stop(){
+   clearTimeout(animate);
+}
+
+window.onload = function() {init();};
+
   });
