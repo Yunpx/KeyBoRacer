@@ -92,8 +92,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
   //------------------< input field >------------------------
   document.getElementById("typing").addEventListener("keypress",(event) => {
-  const keyName = event.key;
-  getInput(event);
+    const keyName = event.key;
+    getInput(event);
   });
 
   function getInput(event) {
@@ -188,22 +188,27 @@ document.addEventListener("DOMContentLoaded", function(){
       document.getElementById("typing").focus();
     }
 
-    document.getElementById("startButton").addEventListener("click", function(){
-      setTimeout(setTimer, 4000);
-      setFocusToTextBox();
-    });
-    //// TODO: no 3-2-1 counter not working
-    document.getElementById("startButton").addEventListener("click",function() {
-      setInterval(function() {
-        if(ready>0){
-       document.getElementById("prepare").innerHTML = ready;
-       ready-=1;
-     }else {
-       clearInterval(ready);
-       document.getElementById("prepare").innerHTML = "";
-     }
-      } , 1000)
-    });
+    // document.getElementById("startButton").addEventListener("click", function(){
+    //   setTimeout(setTimer, 4000);
+    //   setFocusToTextBox();
+    // },{once: true});
+
+    // document.getElementById("typing").addEventListener("keysPress",setTimer() {
+    //      setInterval(function() {
+    //         if(ready>0){
+    //        document.getElementById("prepare").innerHTML = ready;
+    //        ready-=1;
+    //      }else {
+    //        clearInterval(ready);
+    //        document.getElementById("prepare").innerHTML = "";
+    //      }
+    //       } , 1000)
+    // // });
+
+
+    document.getElementById("typing").addEventListener("keypress",function() {
+      setTimer()
+    },{once:true});
 
 
   function setTimer() {
