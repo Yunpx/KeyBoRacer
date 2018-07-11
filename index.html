@@ -5,6 +5,8 @@
     <title></title>
     <link rel="stylesheet" href="Resources/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="CSS/main.css">
+    <link href="Resources/css/speedometer.css" rel="stylesheet" type="text/css" />
+
     <script src="Resources/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="JS/main.js">
 
@@ -32,11 +34,17 @@
           <section id="stopWatch">
            <p id="timer"><span id ="minutes">0</span>min<span id="second">00</span>s<span id="milisecond">00</span><span>ms</span></p>
 
+           <!-- <input id="myValues" class="myValues"/> -->
+           <input id="myValues" />
+
            <p>Fuel</p>
            <div id="myProgress2"></div>
            <div id="myBar2"></div>
 
           </section>
+          <div id="meter">
+
+          </div>
         </div>
         <div class="col-md-9 ">
           <div class="whitespace">
@@ -49,14 +57,18 @@
 
       </div>
       <div class="row Instructions">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <h1>Instructions</h1>
           <p>Press Start to begin, <span class= "inspace">after 3 seconds</span> count down, the timer will start. <span class ="inspace">Press -Space- to begin typing.</span> If your made a mistake, you will lose fuel, and if the fuel drops to 0, you will not be able to continue.</p>
           <p>The Goal of the game is to reach the finish line with high accuracy and shortest time.</p>
-        </div>
+        </div> -->
+
       </div>
 
     </div>
 
   </body>
+  <script src="Resources/js/jquery.js"></script>
+  <script src="Resources/js/speedometer.js"></script>
+
 </html>
