@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log("width2 is " + width);
 
           if(width < 0){
-            alert("game Over!");
+            alert("game Over! You have ran out of fuel!!!");
             clearInterval(myVar);
             clearInterval(myVar2);
             stop();
@@ -274,7 +274,7 @@ function moveRight(){
 }
 
 function stop(){
-   clearTimeout();
+   clearTimeout(animate);
 }
 
 window.onload = function() {init();};
