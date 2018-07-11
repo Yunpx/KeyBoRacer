@@ -185,25 +185,9 @@ document.addEventListener("DOMContentLoaded", function(){
   var ready= 3;
 
   function setFocusToTextBox(){
-      document.getElementById("typing").focus();
+      $('#typing').focus();
     }
 
-    // document.getElementById("startButton").addEventListener("click", function(){
-    //   setTimeout(setTimer, 4000);
-    //   setFocusToTextBox();
-    // },{once: true});
-
-    // document.getElementById("typing").addEventListener("keysPress",setTimer() {
-    //      setInterval(function() {
-    //         if(ready>0){
-    //        document.getElementById("prepare").innerHTML = ready;
-    //        ready-=1;
-    //      }else {
-    //        clearInterval(ready);
-    //        document.getElementById("prepare").innerHTML = "";
-    //      }
-    //       } , 1000)
-    // // });
 
 
     document.getElementById("typing").addEventListener("keypress",function() {
@@ -227,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function(){
       miliseconds+=1;
       var t = d.setMilliseconds(miliseconds);
       t=d.getMilliseconds();
-      document.getElementById("milisecond").innerHTML = t;
+      $('#milisecond').html(t);
       }
 
   function myTimer() {
@@ -236,20 +220,18 @@ document.addEventListener("DOMContentLoaded", function(){
 
       seconds+=1;
       var t = d.setSeconds(seconds);
-      t=d.getSeconds()
-      document.getElementById("second").innerHTML = t;
+      t=d.getSeconds();
+      $('#second').html(t);
 
 
       if(seconds%60==0){
         minutes+=1;
         var m = d.setMinutes(minutes);
         m= d.getMinutes();
-        document.getElementById("minutes").innerHTML = m;
+        $('#minutes').html(m);
       }
       wpm = Math.round((keysPressed/5)/seconds *60);
-
-      document.getElementById("wpm").innerHTML = wpm;
-
+      $('#wpm').html(wpm);
     }
 
     //------------------< moving Car >------------------------
