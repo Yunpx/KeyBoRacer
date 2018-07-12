@@ -178,10 +178,10 @@ $("#myValues").myfunc({divFact:10});
 
 var time = 0;
 
-$.each([ 100, 90, 80, 70,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 ], function( index, value ) {
+$.each([ 100, 90, 80, 70,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1], function( index, value ) {
  setTimeout( function(){ $("#myValues").val($('#wpm').text()).change();
  console.log("hello"+ $('#wpm').text());
 
 }, time)
- time += 1000;
+ time += 1;
 });

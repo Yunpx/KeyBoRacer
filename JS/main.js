@@ -266,4 +266,7 @@ function stop(){
 
 window.onload = function() {init();};
 
+//------------------< MeterBar >------------------------
+
+
   });
