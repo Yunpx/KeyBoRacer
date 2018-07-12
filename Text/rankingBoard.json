@@ -1,8 +1,7 @@
 {
-  "info":[
-    ["Yun","100" ,"90%"],
-    ["Tom","200" ,"100%"],
-    ["Joe","56" ,"99%"]
-
+  "thePlayers":[
+    {"name":"Yun","wpm":"100","accuracy":"100%"},
+    {"name":"Jun","wpm":"100","accuracy":"100%"},
+    {"name":"Bob","wpm":"100","accuracy":"100%"}
   ]
 }

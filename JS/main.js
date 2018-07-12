@@ -23,6 +23,23 @@ document.addEventListener("DOMContentLoaded", function(){
   var rankingBoard =  "Text/rankingBoard.json";
   var rankingRequest = new XMLHttpRequest();
 
+  var xhr = new XMLHttpRequest();
+  var url = "Text/rankingBoard.json";
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+          var json = JSON.parse(xhr.responseText);
+          console.log(json.email + ", " + json.name)
+      }
+  }
+  var data = JSON.stringify({"email":"tomb@raider.com","name":"LaraCroft"});
+  xhr.send(data);
+
+
+  person = new Player();
+  person.name = "yun";
+
   //------------------< getting JSON file for rankingBoard >------------------------
 
   rankingRequest.open('GET', rankingBoard);
@@ -37,9 +54,8 @@ document.addEventListener("DOMContentLoaded", function(){
   function populateTable(jsonObj) {
     var table = document.getElementById("ranking");
 
-    for (var i = 0; i < jsonObj.info.length; i++) {
+    for (var i = 0; i < jsonObj.thePlayers.length; i++) {
       // jsonObj.info[i];
-      for (var j = 0; j < jsonObj.info[i].length; i++) {
         var tr = document.createElement("tr");
         var td1 = document.createElement("td");
         var td2 = document.createElement("td");
@@ -51,14 +67,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
         table.appendChild(tr);
 
-        td1.textContent = jsonObj.info[i][0];
-        td2.textContent = jsonObj.info[i][1];
-        td3.textContent = jsonObj.info[i][2];
-      }
+        td1.textContent = jsonObj.thePlayers[i].name;
+        td2.textContent = jsonObj.thePlayers[i].wpm;
+        td3.textContent = jsonObj.thePlayers[i].accuracy;
     }
-
   }
 
+JSON.stringify([person.name, person.wpm, person.accuracy]);
   //------------------< getting JSON file for whiteBoard >------------------------
 
   request.open('GET', whiteBoard);
@@ -149,28 +164,31 @@ document.addEventListener("DOMContentLoaded", function(){
         if (gameEnded==true) {
           move(0);
         }else {
+          move(percent);
+          if(currentId ==wordsArray.length-2){
+            clearInputField();
+            clearInterval(myVar);
+            clearInterval(myVar2);
+            gameEnded= true;
+             $('#modalComplete').modal('show');
+             showNextButton();
+             showInstruction();
 
+          }else {
+            currentId+=1;
+            addCurrent(currentId);
+            removePrevious(currentId-1);
+            accuracy = Math.round(correctCount/currentWordCount *100) +"%";
 
-        move(percent);
-        if(currentId ==wordsArray.length-2){
-          clearInputField();
-          clearInterval(myVar);
-          clearInterval(myVar2);
-          gameEnded= true;
-           $('#modalComplete').modal('show');
-           showNextButton();
-        }else {
-          currentId+=1;
-          addCurrent(currentId);
-          removePrevious(currentId-1);
-          accuracy = Math.round(correctCount/currentWordCount *100) +"%";
-          clearInputField();
-          console.log("accuracy "+ accuracy);
-          document.getElementById("accuracy").innerHTML = accuracy;
-          wpm = Math.round((keysPressed/5)/seconds *60);
-          console.log(wpm);
+            clearInputField();
+            console.log("accuracy "+ accuracy);
+            document.getElementById("accuracy").innerHTML = accuracy;
+            wpm = Math.round((keysPressed/5)/seconds *60);
+            console.log(wpm);
+          }
+          person.wpm = wpm;
+          person.accuracy=accuracy;
         }
-      }
       }
   }
   //------------------< progress >------------------------
@@ -205,6 +223,9 @@ document.addEventListener("DOMContentLoaded", function(){
             clearInterval(myVar2);
             stop();
             document.getElementById("typing").blur();
+            showNextButton();
+            showInstruction();
+
           }
           elem.style.width = width + '%';
           moveRight(width);
@@ -310,6 +331,14 @@ function showNextButton() {
         x.style.display = "none";
     }
 }
+function showInstruction() {
+    var x = document.getElementById("Instructions");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
 
 
 function Player () {
@@ -324,11 +353,45 @@ function getName() {
 function getAccuracy() {
     return this.accuracy;
 }
-function getAccuracy() {
+function getWpm() {
     return this.wpm;
 }
 
+function changeCar() {
+    var x = document.getElementById("mySelect").value;
+    // document.getElementById("demo").innerHTML = "You selected: " + x;
+    switch (x) {
+      case "BMW":
+        document.getElementById("p1").style.font = "  30px Blackadder ITC";
+        document.getElementById("typing").style.font = "  30px Blackadder ITC";
+        document.getElementById('myImage').src="IMAGES/car.png";
 
+        break;
+      case "Mercedes":
+        document.getElementById("p1").style.font = "  20px Comic Sans MS";
+        document.getElementById("typing").style.font = "  20px Comic Sans MS";
+        document.getElementById('myImage').src="IMAGES/car5.jpg";
+
+        break;
+      case "Volvo":
+        document.getElementById("p1").style.font = "  25px Berlin Sans FB";
+        document.getElementById("typing").style.font = "  25px Berlin Sans FB";
+        document.getElementById('myImage').src="IMAGES/car4.jpg";
+
+        break;
+      case "Audi":
+        document.getElementById("p1").style.font = "  Helvetica";
+        document.getElementById("typing").style.font = "Helvetica";
+        document.getElementById('myImage').src="IMAGES/car3.png";
+        console.log(x);
+        break;
+      default:
+
+    }
+
+}
+
+document.getElementById("mySelect").addEventListener("change", changeCar);
 
 
 window.onload = function() {init();};

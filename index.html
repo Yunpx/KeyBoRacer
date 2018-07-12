@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>KeyBoRacer</title>
     <link rel="stylesheet" href="Resources/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="CSS/main.css">
     <!-- <link href="Resources/css/speedometer.css" rel="stylesheet" type="text/css" /> -->
@@ -15,6 +15,9 @@
 
   </head>
   <body>
+    <div class="heading">
+      <h1>KeyBoRacer</h1>
+    </div>
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
@@ -40,10 +43,15 @@
            <!-- <input id="myValues" class="myValues"/> -->
            <!-- <input id="myValues" /> -->
 
-           <p>Fuel</p>
-           <div id="myProgress2"></div>
+           <p><span><i class="glyphicon glyphicon glyphicon-fire icon"></i></span>Fuel</p>
+           <span id="myProgress2"></span>
            <div id="myBar2"></div>
-
+           <select id="mySelect">
+             <option value="Audi">Audi
+             <option value="BMW">BMW
+             <option value="Mercedes">Mercedes
+             <option value="Volvo">Volvo
+           </select>
           </section>
           <div id="mdeter">
           </div>
@@ -59,8 +67,8 @@
 
       </div>
       <div class="row Instructions">
-        <div class="col-md-12">
-          <button type="button" name="button" id = "nextButton" class="btn btn-warning">next</button>
+        <div class="col-md-12" id="nextButton">
+          <!-- <button type="button" name="button" id = "nextButton" class="btn btn-warning">next</button> -->
           <h1>LeaderBoard</h1>
           <table id ="ranking">
             <th>Name</th><th>Wpm</th><th>Accuracy</th>
@@ -68,6 +76,11 @@
 
             </tr>
           </table>
+        </div>
+        <div id="Instructions">
+          <h1>Instructions</h1>
+          <p>gidn ejfewjej</p>
+        </div>
 
 
             <!-- Modal -->
@@ -104,7 +117,7 @@
                     <h4 class="modal-title">You are out of Fuel!</h4>
                   </div>
                   <div class="modal-body">
-                    <p>Some text in the modal.</p>
+                    <p>Get some more training!</p>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -116,7 +129,6 @@
 
           <!-- <p>Press Start to begin, <span class= "inspace">after 3 seconds</span> count down, the timer will start. <span class ="inspace">Press -Space- to begin typing.</span> If your made a mistake, you will lose fuel, and if the fuel drops to 0, you will not be able to continue.</p>
           <p>The Goal of the game is to reach the finish line with high accuracy and shortest time.</p> -->
-        </div>
 
       </div>
 
