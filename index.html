@@ -5,7 +5,7 @@
     <title></title>
     <link rel="stylesheet" href="Resources/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="CSS/main.css">
-    <link href="Resources/css/speedometer.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="Resources/css/speedometer.css" rel="stylesheet" type="text/css" /> -->
 
     <script src="Resources/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="JS/main.js">
@@ -29,10 +29,12 @@
       </div>
       <div class="row">
         <div class="col-md-3 stats">
-          <p><span>Accuracy: </span><span id ="accuracy"></span></p>
-          <p><span>WPM: </span><span id ="wpm"></span></p>
+          <p><span><i class="glyphicon glyphicon-screenshot icon"></i></span><span>Accuracy: </span><span id ="accuracy"></span></p>
+
+          <p><span><i class="glyphicon glyphicon-dashboard icon"></i></span><span>WPM: </span><span id ="wpm"></span></p>
           <section id="stopWatch">
-           <p id="timer"><span id ="minutes">0</span>min<span id="second">00</span>s<span id="milisecond">00</span><span>ms</span></p>
+            <p id="timer"><span><i class="glyphicon glyphicon-time icon"></i></span>
+           <span id ="minutes">0</span>min<span id="second">0</span>:<span id="milisecond">000</span><span>ms</span></p>
 
            <!-- <input id="myValues" class="myValues"/> -->
            <!-- <input id="myValues" /> -->
@@ -68,7 +70,7 @@
     </div>
 
   </body>
-  <script src="Resources/js/jquery.js"></script>
-  <script src="Resources/js/speedometer.js"></script>
+  <!-- <script src="Resources/js/jquery.js"></script>
+  <script src="Resources/js/speedometer.js"></script> -->
 
 </html>

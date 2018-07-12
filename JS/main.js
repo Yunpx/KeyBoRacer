@@ -12,10 +12,12 @@ document.addEventListener("DOMContentLoaded", function(){
   var timerToggle =  false;
 
   var currentWordCount=0;
-
   var totalWords=0;
   var wpm=0;
   var percent= 0;
+  var gameEnded= false;
+  var wrongCount2=0;
+
 
   //------------------< getting JSON file >------------------------
 
@@ -77,12 +79,12 @@ document.addEventListener("DOMContentLoaded", function(){
     if(currentValue == wordsArray[currentId]){
       element.classList.add("correct");
       correctCount +=1;
-
     }else {
       element.classList.add("wrong");
       wrongCount +=1;
-      move2();
-      console.log("wrong "+wrongCount);
+      if (!gameEnded) {
+        move2();
+      }
     }
   }
 
@@ -103,28 +105,32 @@ document.addEventListener("DOMContentLoaded", function(){
         checker();
 
         currentWordCount+=1;
-
+        percent =Math.round((currentWordCount/totalWords)*100);
+        move(percent);
         if(currentId ==wordsArray.length-2){
           clearInputField();
           alert("Race completed!");
-           clearInterval(myVar);
-           clearInterval(myVar2);
-
+          clearInterval(myVar);
+          clearInterval(myVar2);
+          gameEnded= true;
 
         }else {
           currentId+=1;
           addCurrent(currentId);
           removePrevious(currentId-1);
+          accuracy = Math.round(correctCount/currentWordCount *100) +"%";
+          clearInputField();
+          console.log("accuracy "+ accuracy);
+          document.getElementById("accuracy").innerHTML = accuracy;
+          wpm = Math.round((keysPressed/5)/seconds *60);
+          console.log(wpm);
+
         }
-        accuracy = Math.round(correctCount/currentWordCount *100) +"%";
-        clearInputField();
+
       }
-      wpm = Math.round((keysPressed/5)/seconds *60);
 
-      percent =Math.round((currentWordCount/totalWords)*100);
-      move(percent);
 
-      document.getElementById("accuracy").innerHTML = accuracy;
+
 
   }
   //------------------< progress >------------------------
@@ -142,9 +148,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     }
   }
-  var wrongCount2=0;
 
-  //------------------< Health >------------------------
+  //------------------< Fuel >------------------------
   function move2() {
     wrongCount2 = wrongCount*10;
     var elem = document.getElementById("myBar2");
@@ -255,14 +260,9 @@ function moveRight(){
     if (left<=900) {//// TODO: get dynamic width
         imgObj.style.left = progressBar.clientWidth + 'px';
         imgObj.style.visibility='visible';
-    } else {
-        stop();
     }
 }
 
-function stop(){
-   clearTimeout(animate);
-}
 
 window.onload = function() {init();};
 
