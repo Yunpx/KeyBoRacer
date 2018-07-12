@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-  var requestURL =  "Text/textfile1.json";
-  var request = new XMLHttpRequest();
   var wordsArray =[];
   var space=false;
   var currentId=0;
@@ -19,9 +17,51 @@ document.addEventListener("DOMContentLoaded", function(){
   var wrongCount2=0;
 
 
-  //------------------< getting JSON file >------------------------
+  var whiteBoard =  "Text/textfile1.json";
+  var request = new XMLHttpRequest();
 
-  request.open('GET', requestURL);
+  var rankingBoard =  "Text/rankingBoard.json";
+  var rankingRequest = new XMLHttpRequest();
+
+  //------------------< getting JSON file for rankingBoard >------------------------
+
+  rankingRequest.open('GET', rankingBoard);
+  rankingRequest.responseType = 'json';
+  rankingRequest.send();
+
+  rankingRequest.onload = function() {
+    var text = rankingRequest.response;
+    populateTable(text);
+  }
+
+  function populateTable(jsonObj) {
+    var table = document.getElementById("ranking");
+
+    for (var i = 0; i < jsonObj.info.length; i++) {
+      // jsonObj.info[i];
+      for (var j = 0; j < jsonObj.info[i].length; i++) {
+        var tr = document.createElement("tr");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+
+        table.appendChild(tr);
+
+        td1.textContent = jsonObj.info[i][0];
+        td2.textContent = jsonObj.info[i][1];
+        td3.textContent = jsonObj.info[i][2];
+      }
+    }
+
+  }
+
+  //------------------< getting JSON file for whiteBoard >------------------------
+
+  request.open('GET', whiteBoard);
   request.responseType = 'json';
   request.send();
 
@@ -106,14 +146,19 @@ document.addEventListener("DOMContentLoaded", function(){
 
         currentWordCount+=1;
         percent =Math.round((currentWordCount/totalWords)*100);
+        if (gameEnded==true) {
+          move(0);
+        }else {
+
+
         move(percent);
         if(currentId ==wordsArray.length-2){
           clearInputField();
-          alert("Race completed!");
           clearInterval(myVar);
           clearInterval(myVar2);
           gameEnded= true;
-
+           $('#modalComplete').modal('show');
+           showNextButton();
         }else {
           currentId+=1;
           addCurrent(currentId);
@@ -124,14 +169,9 @@ document.addEventListener("DOMContentLoaded", function(){
           document.getElementById("accuracy").innerHTML = accuracy;
           wpm = Math.round((keysPressed/5)/seconds *60);
           console.log(wpm);
-
         }
-
       }
-
-
-
-
+      }
   }
   //------------------< progress >------------------------
   function move(amount) {
@@ -160,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log("width2 is " + width);
 
           if(width < 0){
-            alert("game Over! You have ran out of fuel!!!");
+            $('#fuelout').modal('show');
             clearInterval(myVar);
             clearInterval(myVar2);
             stop();
@@ -192,8 +232,6 @@ document.addEventListener("DOMContentLoaded", function(){
   function setFocusToTextBox(){
       $('#typing').focus();
     }
-
-
 
     document.getElementById("typing").addEventListener("keypress",function() {
       setTimer()
@@ -252,6 +290,8 @@ function init(){
    imgObj.style.visibility='hidden';
 
    moveRight();
+   document.getElementById("nextButton").style.display = "none";
+
 }
 
 function moveRight(){
@@ -262,6 +302,33 @@ function moveRight(){
         imgObj.style.visibility='visible';
     }
 }
+function showNextButton() {
+    var x = document.getElementById("nextButton");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+
+function Player () {
+    this.name = getName();
+    this.accuracy=getAccuracy();
+    this.wpm=getWpm();
+  }
+
+function getName() {
+    return this.name;
+}
+function getAccuracy() {
+    return this.accuracy;
+}
+function getAccuracy() {
+    return this.wpm;
+}
+
+
 
 
 window.onload = function() {init();};

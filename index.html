@@ -8,6 +8,7 @@
     <!-- <link href="Resources/css/speedometer.css" rel="stylesheet" type="text/css" /> -->
 
     <script src="Resources/jquery-3.3.1.min.js"></script>
+    <script src="Resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="JS/main.js">
 
     </script>
@@ -29,9 +30,9 @@
       </div>
       <div class="row">
         <div class="col-md-3 stats">
-          <p><span><i class="glyphicon glyphicon-screenshot icon"></i></span><span>Accuracy: </span><span id ="accuracy"></span></p>
+          <p><span><i class="glyphicon glyphicon-screenshot icon"></i></span><span>Accuracy: </span><span id ="accuracy">0%</span></p>
 
-          <p><span><i class="glyphicon glyphicon-dashboard icon"></i></span><span>WPM: </span><span id ="wpm"></span></p>
+          <p><span><i class="glyphicon glyphicon-dashboard icon"></i></span><span>WPM: </span><span id ="wpm">0</span></p>
           <section id="stopWatch">
             <p id="timer"><span><i class="glyphicon glyphicon-time icon"></i></span>
            <span id ="minutes">0</span>min<span id="second">0</span>:<span id="milisecond">000</span><span>ms</span></p>
@@ -44,8 +45,7 @@
            <div id="myBar2"></div>
 
           </section>
-          <div id="meter">
-
+          <div id="mdeter">
           </div>
         </div>
         <div class="col-md-9 ">
@@ -59,11 +59,64 @@
 
       </div>
       <div class="row Instructions">
-        <!-- <div class="col-md-12">
-          <h1>Instructions</h1>
-          <p>Press Start to begin, <span class= "inspace">after 3 seconds</span> count down, the timer will start. <span class ="inspace">Press -Space- to begin typing.</span> If your made a mistake, you will lose fuel, and if the fuel drops to 0, you will not be able to continue.</p>
-          <p>The Goal of the game is to reach the finish line with high accuracy and shortest time.</p>
-        </div> -->
+        <div class="col-md-12">
+          <button type="button" name="button" id = "nextButton" class="btn btn-warning">next</button>
+          <h1>LeaderBoard</h1>
+          <table id ="ranking">
+            <th>Name</th><th>Wpm</th><th>Accuracy</th>
+            <tr>
+
+            </tr>
+          </table>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalComplete" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Well Done!</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Enter your name if you want to be on the LeaderBoard.</p>
+                    <input type="text" name="" id="rankName">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-info" value="Submit Button">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Modal fuelout  -->
+            <div class="modal fade" id="fuelout" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">You are out of Fuel!</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          <!-- <p>Press Start to begin, <span class= "inspace">after 3 seconds</span> count down, the timer will start. <span class ="inspace">Press -Space- to begin typing.</span> If your made a mistake, you will lose fuel, and if the fuel drops to 0, you will not be able to continue.</p>
+          <p>The Goal of the game is to reach the finish line with high accuracy and shortest time.</p> -->
+        </div>
 
       </div>
 

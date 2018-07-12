@@ -1,3 +1,9 @@
+#typing{
+  height: 50px;
+  width: 100%;
+  font-size: 40px;
+}
+
 .icon{
   margin: 20px;
   font-size: 30px;
@@ -61,10 +67,10 @@ img.car{
 }
 
 .whitespace  {
-  color: white;
+  color: black;
   overflow: hidden;
   padding: 35px 0 40px 45px;
-  background-color: grey;
+  background-color: #cfcfd1;
   border-radius: 10px 10px 0 0;
   border-color: black;
   user-select: none;
@@ -78,12 +84,12 @@ img.car{
 
 .wrong{
   color:red;
-  background-color: grey;
+  background-color: #cfcfd1;
 }
 
 .correct{
-  color: lightgreen;
-  background-color: grey;
+  color: #098700;
+  background-color: #cfcfd1;
 }
 
 
