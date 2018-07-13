@@ -20,60 +20,7 @@ document.addEventListener("DOMContentLoaded", function(){
   var whiteBoard =  "Text/textfile1.json";
   var request = new XMLHttpRequest();
 
-  var rankingBoard =  "Text/rankingBoard.json";
-  var rankingRequest = new XMLHttpRequest();
 
-  var xhr = new XMLHttpRequest();
-  var url = "Text/rankingBoard.json";
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json");
-  xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-          var json = JSON.parse(xhr.responseText);
-          console.log(json.email + ", " + json.name)
-      }
-  }
-  var data = JSON.stringify({"email":"tomb@raider.com","name":"LaraCroft"});
-  xhr.send(data);
-
-
-  person = new Player();
-  person.name = "yun";
-
-  //------------------< getting JSON file for rankingBoard >------------------------
-
-  rankingRequest.open('GET', rankingBoard);
-  rankingRequest.responseType = 'json';
-  rankingRequest.send();
-
-  rankingRequest.onload = function() {
-    var text = rankingRequest.response;
-    populateTable(text);
-  }
-
-  function populateTable(jsonObj) {
-    var table = document.getElementById("ranking");
-
-    for (var i = 0; i < jsonObj.thePlayers.length; i++) {
-      // jsonObj.info[i];
-        var tr = document.createElement("tr");
-        var td1 = document.createElement("td");
-        var td2 = document.createElement("td");
-        var td3 = document.createElement("td");
-
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-
-        table.appendChild(tr);
-
-        td1.textContent = jsonObj.thePlayers[i].name;
-        td2.textContent = jsonObj.thePlayers[i].wpm;
-        td3.textContent = jsonObj.thePlayers[i].accuracy;
-    }
-  }
-
-JSON.stringify([person.name, person.wpm, person.accuracy]);
   //------------------< getting JSON file for whiteBoard >------------------------
 
   request.open('GET', whiteBoard);
@@ -318,7 +265,7 @@ function init(){
 function moveRight(){
     var progressBar = document.getElementById("myBar");
     left = parseInt(imgObj.style.left, 10);
-    if (left<=900) {//// TODO: get dynamic width
+    if (left<=1100) {
         imgObj.style.left = progressBar.clientWidth + 'px';
         imgObj.style.visibility='visible';
     }
@@ -364,24 +311,24 @@ function changeCar() {
       case "BMW":
         document.getElementById("p1").style.font = "  30px Blackadder ITC";
         document.getElementById("typing").style.font = "  30px Blackadder ITC";
-        document.getElementById('myImage').src="IMAGES/car.png";
+        document.getElementById('myImage').src="IMAGES/car2.png";
 
         break;
       case "Mercedes":
         document.getElementById("p1").style.font = "  20px Comic Sans MS";
         document.getElementById("typing").style.font = "  20px Comic Sans MS";
-        document.getElementById('myImage').src="IMAGES/car5.jpg";
+        document.getElementById('myImage').src="IMAGES/car4.png";
 
         break;
       case "Volvo":
         document.getElementById("p1").style.font = "  25px Berlin Sans FB";
         document.getElementById("typing").style.font = "  25px Berlin Sans FB";
-        document.getElementById('myImage').src="IMAGES/car4.jpg";
+        document.getElementById('myImage').src="IMAGES/car5.png";
 
         break;
       case "Audi":
-        document.getElementById("p1").style.font = "  Helvetica";
-        document.getElementById("typing").style.font = "Helvetica";
+        document.getElementById("p1").style.font = "  25px Helvetica";
+        document.getElementById("typing").style.font = " 25px Helvetica";
         document.getElementById('myImage').src="IMAGES/car3.png";
         console.log(x);
         break;

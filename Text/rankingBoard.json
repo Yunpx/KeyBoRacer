@@ -1,7 +1,7 @@
 {
   "thePlayers":[
-    {"name":"Yun","wpm":"100","accuracy":"100%"},
-    {"name":"Jun","wpm":"100","accuracy":"100%"},
-    {"name":"Bob","wpm":"100","accuracy":"100%"}
+    {"name":"Yun","wpm":"56","accuracy":"96%"},
+    {"name":"Peter","wpm":"79","accuracy":"100%"},
+    {"name":"Tom","wpm":"52","accuracy":"98%"}
   ]
 }
