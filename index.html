@@ -2,16 +2,22 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>KeyBoRacer</title>
+    <link rel="stylesheet" href="Resources/bootstrap-3.3.7/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="CSS/main.css">
+    <!-- <link href="Resources/css/speedometer.css" rel="stylesheet" type="text/css" /> -->
+
+    <script src="Resources/jquery-3.3.1.min.js"></script>
+    <script src="Resources/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="JS/main.js">
 
     </script>
 
-
   </head>
   <body>
+    <div class="heading">
+      <h1 class="mainHead">KeyBoRacer</h1>
+    </div>
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
@@ -27,17 +33,28 @@
       </div>
       <div class="row">
         <div class="col-md-3 stats">
-          <p><span>Accuracy: </span><span id ="accuracy"></span></p>
-          <p><span>WPM: </span><span id ="wpm"></span></p>
+          <p><span><i class="glyphicon glyphicon-screenshot icon"></i></span><span>Accuracy: </span><span id ="accuracy">0%</span></p>
+
+          <p><span><i class="glyphicon glyphicon-dashboard icon"></i></span><span>WPM: </span><span id ="wpm">0</span></p>
           <section id="stopWatch">
-           <p id="timer"><span id ="minutes">0</span>min<span id="second">00</span>s<span id="milisecond">00</span><span>ms</span></p>
+            <p id="timer"><span><i class="glyphicon glyphicon-time icon"></i></span>
+           <span id ="minutes">0</span>min<span id="second">0</span>:<span id="milisecond">000</span><span>ms</span></p>
 
-           <button type="button" name="button" id="startButton" >Start</button><span id="prepare"></span>
-           <p>Fuel</p>
-           <div id="myProgress2"></div>
+           <!-- <input id="myValues" class="myValues"/> -->
+           <!-- <input id="myValues" /> -->
+
+           <p><span><i class="glyphicon glyphicon glyphicon-fire icon"></i></span>Fuel</p>
+           <span id="myProgress2"></span>
            <div id="myBar2"></div>
-
+           <p><strong>Cars: </strong></p><select id="mySelect">
+             <option value="Audi">Audi
+             <option value="BMW">BMW
+             <option value="Mercedes">Mercedes
+             <option value="Volvo">Volvo
+           </select>
           </section>
+          <div id="mdeter">
+          </div>
         </div>
         <div class="col-md-9 ">
           <div class="whitespace">
@@ -50,14 +67,76 @@
 
       </div>
       <div class="row Instructions">
-        <div class="col-md-12">
+        <div class="col-md-12" id="nextButton">
+          <!-- <button type="button" name="button" id = "nextButton" class="btn btn-warning">next</button> -->
+          <h1>Do you Like it?</h1>
+          <a href = "index.html"><button type="button" name="button" class="btn btn-primary"><span><i class="glyphicon glyphicon glyphicon-repeat"></i> Restart</button></a>
+
+
+          <!-- <table id ="ranking">
+            <th>Name</th><th>Wpm</th><th>Accuracy</th>
+            <tr>
+
+            </tr>
+          </table> -->
+          <p id = ranking></p>
+        </div>
+        <div id="Instructions">
           <h1>Instructions</h1>
-          <p>Press Start to begin, after 3 seconds count down, the timer will start. Press -Space- to begin typing.  If your made a mistake, you will lose fuel, and if the fuel drops to 0, you will not be able to continue.</p>
-          <p>The Goal of the game is to reach the finish line with high accuracy and shortest time.</p>
+          <p>Click the text field and start typing to begin, the Timer will start automatically. Correctly typed words/characters will be marked green.<br /> Incorrect ones will be marked red. Keep track on your fuel tank level, if it reaches bottom, you wont be able to continue!</p>
+        </div>
+
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="modalComplete" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Well Done!</h4>
+            </div>
+            <div class="modal-body">
+              <p>Your did well!</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
         </div>
       </div>
+
+      <!-- Modal fuelout  -->
+      <div class="modal fade" id="fuelout" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">You are out of Fuel!</h4>
+            </div>
+            <div class="modal-body">
+              <p>Get some more training!</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    <!-- <p>Press Start to begin, <span class= "inspace">after 3 seconds</span> count down, the timer will start. <span class ="inspace">Press -Space- to begin typing.</span> If your made a mistake, you will lose fuel, and if the fuel drops to 0, you will not be able to continue.</p>
+    <p>The Goal of the game is to reach the finish line with high accuracy and shortest time.</p> -->
+
 
     </div>
 
   </body>
+  <!-- <script src="Resources/js/jquery.js"></script>
+  <script src="Resources/js/speedometer.js"></script> -->
+
 </html>

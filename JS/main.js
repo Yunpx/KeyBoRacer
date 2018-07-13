@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-  var requestURL =  "Text/textfile1.json";
-  var request = new XMLHttpRequest();
   var wordsArray =[];
   var space=false;
   var currentId=0;
@@ -12,14 +10,20 @@ document.addEventListener("DOMContentLoaded", function(){
   var timerToggle =  false;
 
   var currentWordCount=0;
-
   var totalWords=0;
   var wpm=0;
   var percent= 0;
+  var gameEnded= false;
+  var wrongCount2=0;
 
-  //------------------< getting JSON file >------------------------
 
-  request.open('GET', requestURL);
+  var whiteBoard =  "Text/textfile1.json";
+  var request = new XMLHttpRequest();
+
+
+  //------------------< getting JSON file for whiteBoard >------------------------
+
+  request.open('GET', whiteBoard);
   request.responseType = 'json';
   request.send();
 
@@ -77,12 +81,12 @@ document.addEventListener("DOMContentLoaded", function(){
     if(currentValue == wordsArray[currentId]){
       element.classList.add("correct");
       correctCount +=1;
-
     }else {
       element.classList.add("wrong");
       wrongCount +=1;
-      move2();
-      console.log("wrong "+wrongCount);
+      if (!gameEnded) {
+        move2();
+      }
     }
   }
 
@@ -92,8 +96,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
   //------------------< input field >------------------------
   document.getElementById("typing").addEventListener("keypress",(event) => {
-  const keyName = event.key;
-  getInput(event);
+    const keyName = event.key;
+    getInput(event);
   });
 
   function getInput(event) {
@@ -103,29 +107,36 @@ document.addEventListener("DOMContentLoaded", function(){
         checker();
 
         currentWordCount+=1;
-
-        if(currentId ==wordsArray.length-2){
-          clearInputField();
-          alert("Race completed!");
-           clearInterval(myVar);
-           clearInterval(myVar2);
-
-
+        percent =Math.round((currentWordCount/totalWords)*100);
+        if (gameEnded==true) {
+          move(0);
         }else {
-          currentId+=1;
-          addCurrent(currentId);
-          removePrevious(currentId-1);
+          move(percent);
+          if(currentId ==wordsArray.length-2){
+            clearInputField();
+            clearInterval(myVar);
+            clearInterval(myVar2);
+            gameEnded= true;
+             $('#modalComplete').modal('show');
+             showNextButton();
+             showInstruction();
+
+          }else {
+            currentId+=1;
+            addCurrent(currentId);
+            removePrevious(currentId-1);
+            accuracy = Math.round(correctCount/currentWordCount *100) +"%";
+
+            clearInputField();
+            console.log("accuracy "+ accuracy);
+            document.getElementById("accuracy").innerHTML = accuracy;
+            wpm = Math.round((keysPressed/5)/seconds *60);
+            console.log(wpm);
+          }
+          person.wpm = wpm;
+          person.accuracy=accuracy;
         }
-        accuracy = Math.round(correctCount/currentWordCount *100) +"%";
-        clearInputField();
       }
-      wpm = Math.round((keysPressed/5)/seconds *60);
-
-      percent =Math.round((currentWordCount/totalWords)*100);
-      move(percent);
-
-      document.getElementById("accuracy").innerHTML = accuracy;
-
   }
   //------------------< progress >------------------------
   function move(amount) {
@@ -142,9 +153,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     }
   }
-  var wrongCount2=0;
 
-  //------------------< Health >------------------------
+  //------------------< Fuel >------------------------
   function move2() {
     wrongCount2 = wrongCount*10;
     var elem = document.getElementById("myBar2");
@@ -155,11 +165,14 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log("width2 is " + width);
 
           if(width < 0){
-            alert("game Over!");
+            $('#fuelout').modal('show');
             clearInterval(myVar);
             clearInterval(myVar2);
             stop();
             document.getElementById("typing").blur();
+            showNextButton();
+            showInstruction();
+
           }
           elem.style.width = width + '%';
           moveRight(width);
@@ -185,25 +198,12 @@ document.addEventListener("DOMContentLoaded", function(){
   var ready= 3;
 
   function setFocusToTextBox(){
-      document.getElementById("typing").focus();
+      $('#typing').focus();
     }
 
-    document.getElementById("startButton").addEventListener("click", function(){
-      setTimeout(setTimer, 4000);
-      setFocusToTextBox();
-    });
-    //// TODO: no 3-2-1 counter not working
-    document.getElementById("startButton").addEventListener("click",function() {
-      setInterval(function() {
-        if(ready>0){
-       document.getElementById("prepare").innerHTML = ready;
-       ready-=1;
-     }else {
-       clearInterval(ready);
-       document.getElementById("prepare").innerHTML = "";
-     }
-      } , 1000)
-    });
+    document.getElementById("typing").addEventListener("keypress",function() {
+      setTimer()
+    },{once:true});
 
 
   function setTimer() {
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function(){
       miliseconds+=1;
       var t = d.setMilliseconds(miliseconds);
       t=d.getMilliseconds();
-      document.getElementById("milisecond").innerHTML = t;
+      $('#milisecond').html(t);
       }
 
   function myTimer() {
@@ -231,20 +231,18 @@ document.addEventListener("DOMContentLoaded", function(){
 
       seconds+=1;
       var t = d.setSeconds(seconds);
-      t=d.getSeconds()
-      document.getElementById("second").innerHTML = t;
+      t=d.getSeconds();
+      $('#second').html(t);
 
 
       if(seconds%60==0){
         minutes+=1;
         var m = d.setMinutes(minutes);
         m= d.getMinutes();
-        document.getElementById("minutes").innerHTML = m;
+        $('#minutes').html(m);
       }
       wpm = Math.round((keysPressed/5)/seconds *60);
-
-      document.getElementById("wpm").innerHTML = wpm;
-
+      $('#wpm').html(wpm);
     }
 
     //------------------< moving Car >------------------------
@@ -260,23 +258,92 @@ function init(){
    imgObj.style.visibility='hidden';
 
    moveRight();
+   document.getElementById("nextButton").style.display = "none";
+
 }
 
 function moveRight(){
     var progressBar = document.getElementById("myBar");
     left = parseInt(imgObj.style.left, 10);
-    if (left<=900) {//// TODO: get dynamic width
+    if (left<=1100) {
         imgObj.style.left = progressBar.clientWidth + 'px';
         imgObj.style.visibility='visible';
+    }
+}
+function showNextButton() {
+    var x = document.getElementById("nextButton");
+    if (x.style.display === "none") {
+        x.style.display = "block";
     } else {
-        stop();
+        x.style.display = "none";
+    }
+}
+function showInstruction() {
+    var x = document.getElementById("Instructions");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
     }
 }
 
-function stop(){
-   clearTimeout();
+
+function Player () {
+    this.name = getName();
+    this.accuracy=getAccuracy();
+    this.wpm=getWpm();
+  }
+
+function getName() {
+    return this.name;
+}
+function getAccuracy() {
+    return this.accuracy;
+}
+function getWpm() {
+    return this.wpm;
 }
 
+function changeCar() {
+    var x = document.getElementById("mySelect").value;
+    // document.getElementById("demo").innerHTML = "You selected: " + x;
+    switch (x) {
+      case "BMW":
+        document.getElementById("p1").style.font = "  30px Blackadder ITC";
+        document.getElementById("typing").style.font = "  30px Blackadder ITC";
+        document.getElementById('myImage').src="IMAGES/car2.png";
+
+        break;
+      case "Mercedes":
+        document.getElementById("p1").style.font = "  20px Comic Sans MS";
+        document.getElementById("typing").style.font = "  20px Comic Sans MS";
+        document.getElementById('myImage').src="IMAGES/car4.png";
+
+        break;
+      case "Volvo":
+        document.getElementById("p1").style.font = "  25px Berlin Sans FB";
+        document.getElementById("typing").style.font = "  25px Berlin Sans FB";
+        document.getElementById('myImage').src="IMAGES/car5.png";
+
+        break;
+      case "Audi":
+        document.getElementById("p1").style.font = "  25px Helvetica";
+        document.getElementById("typing").style.font = " 25px Helvetica";
+        document.getElementById('myImage').src="IMAGES/car3.png";
+        console.log(x);
+        break;
+      default:
+
+    }
+
+}
+
+document.getElementById("mySelect").addEventListener("change", changeCar);
+
+
 window.onload = function() {init();};
+
+//------------------< MeterBar >------------------------
+
 
   });
