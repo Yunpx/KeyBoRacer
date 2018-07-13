@@ -265,7 +265,7 @@ function init(){
 function moveRight(){
     var progressBar = document.getElementById("myBar");
     left = parseInt(imgObj.style.left, 10);
-    if (left<=1100) {
+    if (left<=1150) {
         imgObj.style.left = progressBar.clientWidth + 'px';
         imgObj.style.visibility='visible';
     }
