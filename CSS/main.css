@@ -76,6 +76,9 @@ table {
 .Instructions p,h1{
   padding-left: 10px;
 }
+.Instructions p{
+  font-size: 19px;
+}
 
 img.car{
   height: 40px;
