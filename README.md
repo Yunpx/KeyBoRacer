@@ -5,7 +5,7 @@ A task was assigned to design and make a game using JS/jquery, CSS and HTML.
 
 I have chosen to design a keyboard focused game for this task, it was one of my favourite type of game in my childhood.
 ## Main Features
-![Image of demo](IMAGES\s1.png)
+![Image of demo](IMAGES/s1.png)
 - Live update of wpm (words per minute)
 - Live update of Accuracy
 - Clear indication of current word, correctly and Incorrectly typed words
